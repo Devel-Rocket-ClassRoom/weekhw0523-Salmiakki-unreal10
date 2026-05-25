@@ -83,5 +83,6 @@ void Homework03_Run()
 		
 
 	}
+	printf("게임종료\n\n\n\n");
 
 }
