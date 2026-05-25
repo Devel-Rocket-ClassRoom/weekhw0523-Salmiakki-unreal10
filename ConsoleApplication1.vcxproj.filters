@@ -18,7 +18,7 @@
     <ClCompile Include="Homework02.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Homewokr03.cpp">
+    <ClCompile Include="Homework03.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Homework04.cpp">
@@ -36,6 +36,12 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Homework02.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Homework03.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Homework04.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
