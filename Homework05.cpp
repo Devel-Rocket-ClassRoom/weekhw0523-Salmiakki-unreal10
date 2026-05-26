@@ -180,6 +180,7 @@ int Bonfire(int currentHP)
 
 void Homework05_Run()
 {
+    
     int Seed = (unsigned int)time(0);
     srand(Seed);
 
@@ -212,21 +213,11 @@ void Homework05_Run()
     int Endy = 0; // ???????? y ???
     // ??? ???
     
-    //OneDtoTwoD(Maze, 10, 20);
-    //int** arr = new int* [10];     //x 는 행의 갯수
-    //for (int i = 0; i < 10; i++)
-    //{
-    //    arr[i] = new int[20];
-    //    printf("%d ", arr[i]);
-    //}
-
-    /*for (int Element : arr)
-    {
-        printf("%d ", Element);
-    }*/
-    //printf("%d.\n", Maze);
+    
     while (true)
     {
+        
+        system("cls");
         Maze[Initialy][Initialx] = 2;
         //printf("%d\n", Maze[1][1]);
 
@@ -286,7 +277,10 @@ void Homework05_Run()
             newx++;
             break;
         }
-        int temp = 0;
+        printf("진행을 위해 아무키나 눌러주세요");
+        int temp = getchar();
+
+        system("cls");
         // ????? ????? ???? ???? ???? ??? ???????
         if (Maze[newy][newx] != 1 && Maze[newy][newx] != 2)
         {
@@ -299,10 +293,16 @@ void Homework05_Run()
 				if (rand() % 100 < EncounterRate)       //EncounterRAte보다 작은 수가 나오면 전투발생
                 {
                     PlayerHP = BattleScene(PlayerHP);
+                    printf("진행을 위해 아무키나 눌러주세요");
+                    int temp = getchar();
+
 				}
                 else if (rand() % 200 < EncounterRate+20)
                 {
                     PlayerHP = Bonfire(PlayerHP);
+                    printf("진행을 위해 아무키나 눌러주세요");
+                    int temp = getchar();
+
                 }
                 
             }     
