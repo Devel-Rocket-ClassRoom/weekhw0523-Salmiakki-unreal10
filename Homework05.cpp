@@ -11,17 +11,17 @@ char GetInput()
     return input;
 }
 
-int BattleManager(int attackPoints, int targetHP, bool isPlayer)
+int BattleManager(int attackPoints, int targetHP, bool isPlayer, string enemyName)
 {
 	int CriticalChance = 10; // 치명타 확률 (10%)
     int ChangedHP = 0;
     int RawDamage = attackPoints+rand()%15;
 	int Damage = rand() % 100 <= CriticalChance ? RawDamage * 2 : RawDamage; // 치명타 여부 결정
-	printf("%s의 공격! %d 데미지!", isPlayer ? "플레이어" : "적", Damage);
+	printf("%s의 공격! %d 데미지!", isPlayer ? "플레이어" : enemyName.c_str(), Damage);
     printf("%s\n", Damage > RawDamage ? "급소에 맞았다!":"");
 	ChangedHP = targetHP - Damage;
 	ChangedHP = ChangedHP < 0 ? 0 : ChangedHP;
-	printf("%s의 남은 HP: [%d]\n\n", isPlayer ? "적" : "플레이어", ChangedHP);
+	printf("%s의 남은 HP: [%d]\n\n", isPlayer ? enemyName.c_str() : "플레이어", ChangedHP);
     return ChangedHP;
 }
 
@@ -105,13 +105,13 @@ int BattleScene(int currentHP)
     printf("%s  HP:[%d]\n", EnemyName[enemy].c_str(), HP[enemy]);
 	while (true)
     {
-        EnemyHP = BattleManager(PlayerATK, EnemyHP, true);
+        EnemyHP = BattleManager(PlayerATK, EnemyHP, true, EnemyName[enemy]);
         if (EnemyHP <= 0)
         {
             printf("%s를 쓰러트렸다!\n", EnemyName[enemy].c_str());
             break;
 		}
-        PlayerHP = BattleManager(ATK[enemy], PlayerHP, false);
+        PlayerHP = BattleManager(ATK[enemy], PlayerHP, false, EnemyName[enemy]);
         if (PlayerHP <= 0)
         {
             printf("플레이어는 눈 앞이 깜깜해졌다!\n");
@@ -120,6 +120,63 @@ int BattleScene(int currentHP)
     }
     return PlayerHP;
 }
+
+int Bonfire(int currentHP)
+{
+    int PlayerHP = currentHP;
+    int Heal = 10;
+    if (PlayerHP < 100)
+    {
+        PlayerHP += Heal;
+        if (PlayerHP > 100)
+        {
+            Heal -= PlayerHP - 100;
+            PlayerHP = 100;
+        }
+        printf("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀        ⠀⢀⡴⠢⣀⠀⠀⠀       \n");
+        printf("    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠒⠔⠋⠀⠀⠀      \n");
+        printf("   ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠤⠴⠒⠖⠖⠶⠢⠤⣀⠀⠀⠀⠀⠀⠀⠀     \n");
+        printf("   ⠀⠀⠠⠖⢆⡀⠀⠀⣠⠔⣇⠲⣀⢀⠂⣀⠒⣊⢴⣹⠠⣄⠀⠀⠀⡠⢄   \n");
+        printf("   ⠀⠀⠈⠂⠋⠀⠀⢸⠀⠀⠽⣷⣮⣷⢿⣮⣷⣽⡾⠏⠀⠀⡆⠀⠀⠁⠈    \n");
+        printf("   ⠀⠀⠀⠀⠀⠀⠀⠸⡀⠀⣸⡧⡀⡤⣀⠠⣀⠠⣼⣟⢀⢠⠇⠀⠀⠀⠀    \n");
+        printf("   ⡤⡀⠀⠀⠀⠀⠀⠀⠨⡇⢹⡕⠶⠶⠴⠶⠴⠶⣮⡏⢸⠁⠀⠀⠀⠀⠀    \n");
+        printf("   ⠑⠁⠀⠀⠀⠀⢀⡠⠞⠁⠀⠙⠳⠾⠶⠷⠾⠞⠋⠀⠈⠳⣄⠀⠀⠀⠀    \n");
+        printf("   ⠀⠀⠀⠀⠀⢰⠋⠀⣀⣤⣤⣤⣶⣶⣶⣶⣶⣦⣤⣤⣤⣀⠈⠓⡄⠀⠀    \n");
+        printf("   ⠀⠀⠀⠀⠀⢸⠀⠘⠛⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠂⡅⠀⠀    \n");
+        printf("   ⠀⠀⠀⠀⠀⢸⠀⠀⠀⢀⣾⣿⣷⣶⣿⣿⣿⣿⣷⣾⣶⡾⢷⡆⡄⠀⠀    \n");
+        printf("   ⠀⠀⠀⠀⠀⢸⠀⠀⢀⣾⣿⣿⣿⣯⣿⣿⣿⠟⠉⠙⢿⣿⣿⡇⠇⠀⠀    \n");
+        printf("   ⠀⠀⠀⠀⠀⢸⠀⠀⢸⣿⣿⣯⣿⣿⣿⣻⣧⡠⢤⢤⣬⣿⣿⡇⡃⠀⠀    \n");
+        printf("   ⠀⠀⠀⠀⠀⢸⠀⠀⢾⣯⣽⡿⣽⣿⣟⣿⢿⣦⣥⣼⡿⣿⣹⡇⡃⠀⠀    \n");
+        printf("   ⠀⠀⠀⠀⠀⢸⠀⠀⢯⡿⡏⠁⠀⢹⣟⡾⡿⣽⣻⣽⣻⢿⡽⡇⡅⠀⠀    \n");
+        printf("   ⠀⠀⠀⠀⠀⢸⠀⠀⡟⡟⣷⣤⣤⣿⢫⣷⠛⣧⡟⣶⣿⣯⡟⡇⡆⠀⠀    \n");
+        printf("   ⠀⠀⠀⠀⠀⢸⠀⠀⣽⡷⣍⢯⣝⢮⡽⢬⡛⣶⢹⣭⢆⡾⣹⠇⡆⠀⠀    \n");
+        printf("   ⠀⠀⠀⠀⠀⢸⠀⠀⢾⡘⢿⠚⡌⢇⢏⢣⢃⠗⡛⡜⢎⡹⢏⡇⠆⠀⠀    \n");
+        printf("   ⠀⠀⠀⠀⠀⢾⡀⠀⣞⢡⢎⠩⡘⠌⡌⢢⠉⡌⡙⠬⡆⠩⠌⣆⡃⠀⠀    \n");
+        printf("   ⠀⠀⠀⠀⠀⠈⠋⠤⣈⢀⡂⠡⠌⠰⢈⠂⠌⡐⠁⢂⡐⣡⠼⠚⠁⠀⠀   \n");
+        printf("   ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠑⠒⠒⠒⠒⠒⠒⠛⠉⠉⠀⠀⠀⠀⠀⠀     \n");
+        printf("\n[마을이다! 체력을 %d 회복했다!]\n\n", Heal);
+    }
+    return PlayerHP;
+}
+
+//void OneDtoTwoD(int** (Array), int SizeY, int SizeX)
+//{
+//    int a = 0;
+//    int NewArray[200] = { 0, };
+//    for (int j = 0; j < SizeY * SizeX; j++)
+//    {
+//        for (int i = 0; i < SizeX ; i++)
+//        {
+//            //printf("%d ", Array[j][i]);
+//           NewArray[a] = Array[j][i];
+//            a++;
+//        }
+//    }
+//    for (int Element : NewArray)
+//    {
+//        printf("%d \n", Element);
+//    }
+//}
 
 void Homework05_Run()
 {
@@ -154,8 +211,20 @@ void Homework05_Run()
     int Endx = 0; // ???????? x ???
     int Endy = 0; // ???????? y ???
     // ??? ???
+    
+    //OneDtoTwoD(Maze, 10, 20);
+    //int** arr = new int* [10];     //x 는 행의 갯수
+    //for (int i = 0; i < 10; i++)
+    //{
+    //    arr[i] = new int[20];
+    //    printf("%d ", arr[i]);
+    //}
 
-    printf("한글.\n");
+    /*for (int Element : arr)
+    {
+        printf("%d ", Element);
+    }*/
+    //printf("%d.\n", Maze);
     while (true)
     {
         Maze[Initialy][Initialx] = 2;
@@ -165,26 +234,24 @@ void Homework05_Run()
         {
             for (int j = 0; j < MazeCols; j++)
             {
-
                 switch (Maze[i][j])
-
                 {
                 case 1:
-                    printf("#"); // ??
+                    printf("# "); // ??
                     break;
                 case 0:
-                    printf("."); // ??
+                    printf(". "); // ??
                     break;
                 case 2:
-                    printf("S"); // ??????
+                    printf("S "); // ??????
                     break;
                 case 3:
-                    printf("E"); // ??????
+                    printf("E "); // ??????
                     Endy = i;
                     Endx = j;
                     break;
                 case 4:
-                    printf("P"); // ?????
+                    printf("P "); // ?????
                     playery = i;
                     playerx = j;
                     break;
@@ -233,6 +300,10 @@ void Homework05_Run()
                 {
                     PlayerHP = BattleScene(PlayerHP);
 				}
+                else if (rand() % 200 < EncounterRate+20)
+                {
+                    PlayerHP = Bonfire(PlayerHP);
+                }
                 
             }     
         }

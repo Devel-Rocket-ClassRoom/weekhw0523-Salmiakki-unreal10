@@ -17,9 +17,9 @@ using namespace std;
 
 int main()
 {
-	Homework02_Run();
-	Homework03_Run();
-	Homework04_Run();
+	//Homework02_Run();
+	//Homework03_Run();
+	//Homework04_Run();
     Homework05_Run();
 
 }
