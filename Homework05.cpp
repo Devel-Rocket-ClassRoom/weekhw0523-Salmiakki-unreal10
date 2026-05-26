@@ -178,26 +178,9 @@ int Bonfire(int currentHP)
 //    }
 //}
 
-void TwoDtoOneD(int(* arr)[20], int Height)       // Maze는 첫번째 요소(int 20개 짜리 배열)의 주소를 가리키는 포인터, int(*arr)[20]으로 타입을 맞춘다 arr = &Maze[0]
-{
-	int NewArray[200] = { 0, };
-    int count = 0;
-    for (int i = 0; i <Height; i++)
-    {
-        for(int j = 0; j < 20; j++)
-        {
-            NewArray[count] = (arr)[i][j];
-			count++;
-        }
-    }
-    for (int Element : NewArray)
-    {
-        printf("%d ", Element);
-	}
-}
-
 void Homework05_Run()
 {
+    
     int Seed = (unsigned int)time(0);
     srand(Seed);
 
@@ -229,7 +212,6 @@ void Homework05_Run()
     int Endx = 0; // ???????? x ???
     int Endy = 0; // ???????? y ???
     // ??? ???
-    TwoDtoOneD(Maze, 10);
     
     
     while (true)
