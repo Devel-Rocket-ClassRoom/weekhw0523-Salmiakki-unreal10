@@ -124,17 +124,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Day0529.cpp" />
     <ClCompile Include="Homework03.cpp" />
     <ClCompile Include="Homework02.cpp" />
     <ClCompile Include="Homework04.cpp" />
     <ClCompile Include="Homework05.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemySprites.h" />
     <ClInclude Include="Homework02.h" />
     <ClInclude Include="Homework03.h" />
     <ClInclude Include="Homework04.h" />
     <ClInclude Include="Homework05.h" />
+    <ClInclude Include="IneractionSprites.h" />
+    <ClInclude Include="Interactions.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
